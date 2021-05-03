@@ -795,10 +795,14 @@ then restore the original execution context.
 
 * Returns: {AsyncResource} A reference to `asyncResource`.
 
-Call all `destroy` hooks. This should only ever be called once. An error will
-be thrown if it is called more than once. This **must** be manually called. If
-the resource is left to be collected by the GC then the `destroy` hooks will
-never be called.
+Call all `destroy` hooks. This should only ever be called once to avoid
+`destroy` hooks being called multiple times. If `requireManualDestroy` is
+set to `false` (default value), this will be called on garbage collection
+automatically.
+
+If `requireManualDestroy` option is set to `true` when the resource was
+constructed, this **must** be manually called. Otherwise, if the resource is
+left to be collected by the GC then the `destroy` hooks will never be called.
 
 #### `asyncResource.asyncId()`
 
